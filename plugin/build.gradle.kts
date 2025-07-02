@@ -27,12 +27,12 @@ kotlin {
 
 @Suppress("UnstableApiUsage")
 gradlePlugin {
-    website = "https://github.com/ttypic/swift-klib-plugin"
-    vcsUrl = "https://github.com/ttypic/swift-klib-plugin"
+    website = "https://github.com/bernatcarbo/swift-klib-plugin-fork"
+    vcsUrl = "https://github.com/bernatcarbo/swift-klib-plugin-fork"
 
     plugins {
-        create("swiftklib") {
-            id = "io.github.ttypic.swiftklib"
+        create("swiftklibfork") {
+            id = "io.github.bernatcarbo.swiftklibfork"
             displayName = "SwiftKlib Gradle Plugin"
             description = "Gradle Plugin to inject Swift-code for Kotlin Multiplatform iOS target"
             implementationClass = "io.github.ttypic.swiftklib.gradle.SwiftKlibPlugin"
