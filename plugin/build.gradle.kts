@@ -19,7 +19,7 @@ tasks.named<Test>("test") {
 }
 
 version = "1.0.0"
-group = "io.github.ttypic"
+group = "io.github.bernatcarbo"
 
 kotlin {
     jvmToolchain(17)
