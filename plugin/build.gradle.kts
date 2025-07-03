@@ -1,7 +1,7 @@
 plugins {
     id("java-gradle-plugin")
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.gradle.publish)
+    `maven-publish`
 }
 
 dependencies {
@@ -25,6 +25,7 @@ kotlin {
     jvmToolchain(17)
 }
 
+/*
 @Suppress("UnstableApiUsage")
 gradlePlugin {
     website = "https://github.com/bernatcarbo/swift-klib-plugin-fork"
@@ -40,6 +41,7 @@ gradlePlugin {
         }
     }
 }
+ */
 
 publishing {
     repositories {
