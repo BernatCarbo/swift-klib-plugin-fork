@@ -24,11 +24,6 @@ jobs:
                   java-version: '17'
                   check-latest: true
 
-            - name: Publish to GitHub Packages
-              run: ./gradlew publish
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
             - name: Publish to Maven Central
               env:
                   MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
