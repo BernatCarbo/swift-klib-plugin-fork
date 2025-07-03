@@ -19,11 +19,16 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-version = "1.0.0"
+version = "1.1.0"
 group = "io.github.bernatcarbo"
 
 kotlin {
     jvmToolchain(17)
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 @Suppress("UnstableApiUsage")
