@@ -28,7 +28,6 @@ kotlin {
 
 java {
     withSourcesJar()
-    withJavadocJar()
 }
 
 @Suppress("UnstableApiUsage")
