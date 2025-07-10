@@ -41,7 +41,11 @@ jobs:
                 env:
                     MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                     MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-                run: ./gradlew closeStagingRepositories
+                run: |
+                    ./gradlew io.github.bernatcarbo--5eccc0c4-ded7-496a-82dc-89a86f40e182 closeStagingRepositories
+                    ./gradlew io.github.bernatcarbo--6a1f191d-bf7f-477c-ac36-1295f6b45ca3 closeStagingRepositories
+                    ./gradlew io.github.bernatcarbo--c5bcf65a-a2f9-47af-8fc8-aca01d600460 closeStagingRepositories
+                    ./gradlew io.github.bernatcarbo--ce7460ec-6522-488e-9f77-a376a8a7b005 closeStagingRepositories
 
     maven-publish:
         name: Maven publish
