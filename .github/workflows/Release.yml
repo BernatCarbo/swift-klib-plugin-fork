@@ -47,7 +47,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  sparse-checkout: gradle,build.gradle.kts,gradle.properties,gradlew,gradlew.bat
+                  sparse-checkout: |
+                    gradle
+                    build.gradle.kts
+                    gradle.properties
+                    gradlew
+                    gradlew.bat
 
             - name: Setup Gradle
               uses: gradle/actions/setup-gradle@v4
@@ -74,7 +79,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  sparse-checkout: gradle,build.gradle.kts,gradle.properties,gradlew,gradlew.bat
+                  sparse-checkout: |
+                      gradle
+                      build.gradle.kts
+                      gradle.properties
+                      gradlew
+                      gradlew.bat
 
             - name: Setup Gradle
               uses: gradle/actions/setup-gradle@v4
