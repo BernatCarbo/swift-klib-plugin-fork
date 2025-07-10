@@ -68,7 +68,7 @@ jobs:
               env:
                   MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                   MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-              run: ./gradlew findSonatypeStagingRepository closeSonatypeStagingRepository -x test
+              run: ./gradlew findSonatypeStagingRepository closeSonatypeStagingRepository
 
     maven-release:
         name: Maven release
@@ -100,4 +100,4 @@ jobs:
               env:
                   MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                   MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-              run: ./gradlew findSonatypeStagingRepository releaseSonatypeStagingRepository -x test
+              run: ./gradlew findSonatypeStagingRepository releaseSonatypeStagingRepository
