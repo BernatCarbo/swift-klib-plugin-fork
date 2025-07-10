@@ -12,8 +12,40 @@ permissions:
     packages: write
 
 jobs:
+    maven-cleanup:
+        name: Maven cleanup
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+                with:
+                    sparse-checkout: |
+                        gradle
+                        build.gradle.kts
+                        gradle.properties
+                        gradlew
+                        gradlew.bat
+
+            -   name: Setup Gradle
+                uses: gradle/actions/setup-gradle@v4
+
+            -   name: Setup Java
+                uses: actions/setup-java@v4
+                with:
+                    distribution: zulu
+                    java-version: 17
+                    check-latest: true
+
+            -   name: Cleanup
+                env:
+                    MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                    MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+                run: ./gradlew closeStagingRepositories
+
     maven-publish:
         name: Maven publish
+        needs: [maven-cleanup]
         runs-on: ubuntu-latest
 
         steps:
