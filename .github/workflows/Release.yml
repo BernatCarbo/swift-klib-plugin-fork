@@ -12,22 +12,82 @@ permissions:
     packages: write
 
 jobs:
-    publish-release:
+    maven-publish:
+        name: Maven publish
         runs-on: ubuntu-latest
-        timeout-minutes: 25
 
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-java@v4
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Gradle
+              uses: gradle/actions/setup-gradle@v4
+
+            - name: Setup Java
+              uses: actions/setup-java@v4
               with:
-                  distribution: 'zulu'
-                  java-version: '17'
+                  distribution: zulu
+                  java-version: 17
                   check-latest: true
 
-            - name: Publish to Maven Central
+            - name: Publish
               env:
                   MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                   MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
                   MAVEN_SIGN_KEY: ${{ secrets.MAVEN_SIGN_KEY }}
                   MAVEN_SIGN_PASSWORD: ${{ secrets.MAVEN_SIGN_PASSWORD }}
-              run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -x test
+              run: ./gradlew publishToSonatype -x test
+
+    maven-close:
+        name: Maven close
+        needs: [maven-publish]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  sparse-checkout: gradle,build.gradle.kts,gradle.properties,gradlew,gradlew.bat
+
+            - name: Setup Gradle
+              uses: gradle/actions/setup-gradle@v4
+
+            - name: Setup Java
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 17
+                  check-latest: true
+
+            - name: Publish
+              env:
+                  MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                  MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+              run: ./gradlew findSonatypeStagingRepository closeSonatypeStagingRepository -x test
+
+    maven-release:
+        name: Maven release
+        needs: [maven-close]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  sparse-checkout: gradle,build.gradle.kts,gradle.properties,gradlew,gradlew.bat
+
+            - name: Setup Gradle
+              uses: gradle/actions/setup-gradle@v4
+
+            - name: Setup Java
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 17
+                  check-latest: true
+
+            - name: Release repository
+              env:
+                  MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                  MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+              run: ./gradlew findSonatypeStagingRepository releaseSonatypeStagingRepository -x test
